@@ -56,7 +56,31 @@ module ``about the stock example`` =
     // using the F# Interactive window to check your progress.
 
     [<Koan>]
+    let SplittingCommas() =
+        let splitCommas (x:string) =
+             x.Split([|','|])
+
+        let data = stockData.Tail
+                    |> List.map splitCommas
+
+        AssertEquality data.Head.[0] "2012-03-30"
+
+    [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+        let splitCommas (x:string) =
+             x.Split([|','|])
+
+        let parseDouble (d:string) =
+            System.Double.Parse(d)
+
+        let calculateAbsoluteVariance (x:string[]) =
+            abs (parseDouble(x.[1]) - parseDouble(x.[4]))
+        
+
+        let recordWithMaxVariance = stockData.Tail
+                                    |> List.map splitCommas
+                                    |> List.maxBy calculateAbsoluteVariance
+
+        let result =  recordWithMaxVariance.[0]
         
         AssertEquality "2012-03-13" result
